@@ -12,8 +12,6 @@ public class CameraMovement : MonoBehaviour
     private float pitch = 0f;
     private float distance = 20f; // Start at midpoint
 
-    private TowerCheck _selectedTowerGround;
-
     void Update()
     {
         // Camera movement
@@ -45,40 +43,9 @@ public class CameraMovement : MonoBehaviour
 
             if (Physics.Raycast(ray, out hit))
             {
-                var towerCheck = hit.collider.GetComponent<TowerCheck>();
-                if (towerCheck != null)
-                {
-                    if (_selectedTowerGround != null && _selectedTowerGround != towerCheck)
-                        _selectedTowerGround.Deselect();
-
-                    if (towerCheck == _selectedTowerGround)
-                    {
-                        towerCheck.Deselect();
-                        _selectedTowerGround = null;
-                        Debug.Log($"Tower ground {towerCheck.gameObject.name} deselected.");
-                    }
-                    else
-                    {
-                        towerCheck.Select();
-                        _selectedTowerGround = towerCheck;
-                        Debug.Log($"Tower ground {towerCheck.gameObject.name} selected.");
-                    }
-                }
+                Debug.Log("Hit object: " + hit.collider.name);
+                // Add your selection logic here
             }
-        }
-
-        // Spawning logic
-        if (_selectedTowerGround != null)
-        {
-            if (Input.GetKeyDown(KeyCode.Alpha1))
-                _selectedTowerGround.SpawnPrefabAtTowerGround(0);
-            if (Input.GetKeyDown(KeyCode.Alpha2))
-                _selectedTowerGround.SpawnPrefabAtTowerGround(1);
-            if (Input.GetKeyDown(KeyCode.Alpha3))
-                _selectedTowerGround.SpawnPrefabAtTowerGround(2);
-            if (Input.GetKeyDown(KeyCode.Alpha4))
-                _selectedTowerGround.SpawnPrefabAtTowerGround(3);
         }
     }
 }
-

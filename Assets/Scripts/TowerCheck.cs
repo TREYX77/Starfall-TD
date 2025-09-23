@@ -1,48 +1,58 @@
-using UnityEngine;
+﻿using UnityEngine;
 
-public class TowerCheck : MonoBehaviour
+public class Mousecheck : MonoBehaviour
 {
-    [SerializeField] private GameObject _Tower;
-    [SerializeField] private GameObject _towerGround; // ground tower
-    [SerializeField] public static bool _isSelected = false;
+    [SerializeField] private LayerMask _rayLayer;
+    [SerializeField] private Material _selectedMaterial;
+    [SerializeField] private bool _allowMultipleSpawns = true;
 
-    [SerializeField] private GameObject[] _towerPrefabs; // assign 4 prefabs in Inspector
+    private GameObject _selectedObject;
+    private Material _originalMaterial;
+    private bool _hasSpawned = false; // houdt bij of er al iets gespawned is
 
     void Update()
     {
-        // No input logic here; handled by CameraMovement
+        // Als meerdere spawns niet toegestaan zijn en er al gespawned is, mag niet selecteren
+        if (!_allowMultipleSpawns && _hasSpawned) return;
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+
+            if (Physics.Raycast(ray, out hit, Mathf.Infinity, _rayLayer))
+            {
+                GameObject clickedObject = hit.transform.gameObject;
+
+                // deselect als dezelfde Cube wordt aangeklikt
+                if (_selectedObject == clickedObject)
+                {
+                    _selectedObject.GetComponent<Renderer>().material = _originalMaterial;
+                    _selectedObject = null;
+                    return;
+                }
+
+                if (_selectedObject != null)
+                {
+                    _selectedObject.GetComponent<Renderer>().material = _originalMaterial;
+                }
+
+                _selectedObject = clickedObject;
+                _originalMaterial = _selectedObject.GetComponent<Renderer>().material;
+                _selectedObject.GetComponent<Renderer>().material = _selectedMaterial;
+            }
+        }
     }
 
-    public void Select()
+    public void SpawnTower(GameObject towerPrefab)
     {
-        _isSelected = true;
-        var renderer = GetComponent<Renderer>();
-        if (renderer != null)
-        {
-            renderer.material.color = Color.green;  
-        }
-    }
+        if (_selectedObject == null) return;
 
-    public void Deselect()
-    {
-        _isSelected = false;
-        var renderer = GetComponent<Renderer>();
-        if (renderer != null)
-        {
-            renderer.material.color = Color.white;
-        }
-    }
+        Instantiate(towerPrefab, _selectedObject.transform.position, Quaternion.identity);
 
-    public void SpawnPrefabAtTowerGround(int prefabIndex)
-    {
-        if (_towerPrefabs != null && _towerPrefabs.Length > prefabIndex && _towerPrefabs[prefabIndex] != null && _towerGround != null)
-        {
-            Instantiate(_towerPrefabs[prefabIndex], _towerGround.transform.position, Quaternion.identity);
-            Debug.Log($"Prefab {prefabIndex + 1} spawned at tower ground position.");
-        }
-        else
-        {
-            Debug.LogWarning("Prefab or tower ground not assigned, or index out of range.");
-        }
+        _selectedObject.GetComponent<Renderer>().material = _originalMaterial;
+        _selectedObject = null;
+
+        _hasSpawned = true; // voorkomt nieuwe spawns als _allowMultipleSpawns = false
     }
 }

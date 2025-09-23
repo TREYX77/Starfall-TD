@@ -267,6 +267,7 @@ GameObject:
   - component: {fileID: 106925282}
   - component: {fileID: 106925281}
   - component: {fileID: 106925280}
+  - component: {fileID: 106925284}
   m_Layer: 0
   m_Name: Cube (3)
   m_TagString: Untagged
@@ -289,8 +290,8 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 1
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
@@ -366,6 +367,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &106925284
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 106925279}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b947886164a6daa4daab99ac420d51d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  designatedTag: Enemy
 --- !u!1 &191296433
 GameObject:
   m_ObjectHideFlags: 0

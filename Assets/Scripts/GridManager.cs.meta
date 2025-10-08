@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: fb31b55de292b05408309551faafcb72
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - roadPrefab: {fileID: 1273736756702365452, guid: b4d6734969620f1418d7ceea38116136, type: 3}
+  - towerGroundPrefab: {instanceID: 0}
+  - spawnerPrefab: {instanceID: 0}
+  - basePrefab: {instanceID: 0}
+  - decoPrefab: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

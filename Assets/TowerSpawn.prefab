@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 92195344600323567}
   - component: {fileID: 6059712861116678380}
   m_Layer: 6
-  m_Name: Cube (5)
+  m_Name: TowerSpawn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

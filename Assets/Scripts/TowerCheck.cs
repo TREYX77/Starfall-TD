@@ -5,6 +5,7 @@ public class Mousecheck : MonoBehaviour
     [SerializeField] private LayerMask _rayLayer;
     [SerializeField] private Material _selectedMaterial;
     [SerializeField] private bool _allowMultipleSpawns = true;
+    [SerializeField] private double _spawnYOffset = 0.4; // You can set this in the Inspector
 
     private GameObject _selectedObject;
     private Material _originalMaterial;
@@ -48,7 +49,11 @@ public class Mousecheck : MonoBehaviour
     {
         if (_selectedObject == null) return;
 
-        Instantiate(towerPrefab, _selectedObject.transform.position, Quaternion.identity);
+        Instantiate(
+            towerPrefab,
+            _selectedObject.transform.position + new Vector3(0, (float)_spawnYOffset, 0),
+            Quaternion.identity
+        );
 
         _selectedObject.GetComponent<Renderer>().material = _originalMaterial;
         _selectedObject = null;

@@ -468,7 +468,7 @@ MonoBehaviour:
         m_MethodName: SpawnTower
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 5169019002472810350, guid: 72b37098186e054499e655ff04472a43, type: 3}
+          m_ObjectArgument: {fileID: 7179753849017359950, guid: 5eef620181dd5214187daee19eb52d46, type: 3}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
@@ -681,11 +681,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc87c34334668b447a726c1e502074f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Mousecheck
-  _spawnLayer:
+  _rayLayer:
     serializedVersion: 2
     m_Bits: 64
   _selectedMaterial: {fileID: 2100000, guid: 0a054b22bd79d5b4aaf4580d310952bb, type: 2}
-  _towerOffset: {x: 0, y: 0.5, z: 0}
+  _allowMultipleSpawns: 1
+  _spawnYOffset: 0.5
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0

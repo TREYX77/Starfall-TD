@@ -5,8 +5,8 @@ public class WaveContinue : MonoBehaviour
 {
     [SerializeField] private GameObject cubePrefab;
     [SerializeField] private Transform spawnPoint;
-    [SerializeField] private float spawnInterrval = 6f;
-    [SerializeField] private int totalCubes = 10;
+    [SerializeField] private float _spawnInterrval = 6f;
+    [SerializeField] private int _totalCubes = 10;
 
     private int cubesSpawned = 0;
     private float timer = 0f;
@@ -19,10 +19,10 @@ public class WaveContinue : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       if (cubesSpawned < totalCubes)
+       if (cubesSpawned < _totalCubes)
         {
             timer += Time.deltaTime;
-            if (timer >= spawnInterrval)
+            if (timer >= _spawnInterrval)
             {
                 SpawnCube();
                 timer = 0f;

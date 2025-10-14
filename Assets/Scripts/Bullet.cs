@@ -2,20 +2,13 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    public float speed = 20f;
-    public int damage = 10;
-    public float lifetime = 3f;
-
     private Transform target;
+    public float speed = 20f;
+    public float damage = 25f;
 
-    public void SetTarget(Transform newTarget)
+    public void Seek(Transform _target)
     {
-        target = newTarget;
-    }
-
-    void Start()
-    {
-        Destroy(gameObject, lifetime);
+        target = _target;
     }
 
     void Update()
@@ -26,20 +19,26 @@ public class Bullet : MonoBehaviour
             return;
         }
 
-        // Richt naar target
-        Vector3 dir = (target.position - transform.position).normalized;
-        transform.position += dir * speed * Time.deltaTime;
+        Vector3 dir = target.position - transform.position;
+        float distanceThisFrame = speed * Time.deltaTime;
 
-        // Draai bullet in de richting van de target (optioneel)
-        transform.forward = dir;
+        if (dir.magnitude <= distanceThisFrame)
+        {
+            HitTarget();
+            return;
+        }
+
+        transform.Translate(dir.normalized * distanceThisFrame, Space.World);
+        transform.LookAt(target);
     }
 
-    void OnTriggerEnter(Collider other)
+    void HitTarget()
     {
-        if (other.CompareTag("Enemy"))
+        Enemy e = target.GetComponent<Enemy>();
+        if (e != null)
         {
-            Destroy(gameObject);
-            // Hier damage toepassen
+            e.TakeDamage(damage);
         }
+        Destroy(gameObject);
     }
 }

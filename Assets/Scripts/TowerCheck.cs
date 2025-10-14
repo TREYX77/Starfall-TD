@@ -1,89 +1,63 @@
 ﻿using UnityEngine;
 
-public class TowerSpawner : MonoBehaviour
+public class Mousecheck : MonoBehaviour
 {
-    [Header("Spawn Settings")]
-    [SerializeField] private LayerMask _spawnLayer;   // alleen spawnpoints
+    [SerializeField] private LayerMask _rayLayer;
     [SerializeField] private Material _selectedMaterial;
-    [SerializeField] private Vector3 _towerOffset = new Vector3(0, 0.5f, 0);
+    [SerializeField] private bool _allowMultipleSpawns = true;
+    [SerializeField] private double _spawnYOffset = 0.5; // You can set this in the Inspector
 
-    private GameObject _selectedSpawnPoint;
+    private GameObject _selectedObject;
     private Material _originalMaterial;
+    private bool _hasSpawned = false; // houdt bij of er al iets gespawned is
 
     void Update()
     {
-        // Klik op spawnpoint om te selecteren
+        // Als meerdere spawns niet toegestaan zijn en er al gespawned is, mag niet selecteren
+        if (!_allowMultipleSpawns && _hasSpawned) return;
+
         if (Input.GetMouseButtonDown(0))
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, _spawnLayer))
-            {
-                GameObject clickedTile = hit.transform.gameObject;
+            RaycastHit hit;
 
-                // Deselecet als dezelfde tile wordt aangeklikt
-                if (_selectedSpawnPoint == clickedTile)
+            if (Physics.Raycast(ray, out hit, Mathf.Infinity, _rayLayer))
+            {
+                GameObject clickedObject = hit.transform.gameObject;
+
+                // deselect als dezelfde Cube wordt aangeklikt
+                if (_selectedObject == clickedObject)
                 {
-                    RestoreMaterial(_selectedSpawnPoint);
-                    _selectedSpawnPoint = null;
+                    _selectedObject.GetComponent<Renderer>().material = _originalMaterial;
+                    _selectedObject = null;
                     return;
                 }
 
-                // Revert vorige selectie
-                if (_selectedSpawnPoint != null)
-                    RestoreMaterial(_selectedSpawnPoint);
+                if (_selectedObject != null)
+                {
+                    _selectedObject.GetComponent<Renderer>().material = _originalMaterial;
+                }
 
-                // Selecteer nieuwe tile
-                _selectedSpawnPoint = clickedTile;
-                SetMaterial(_selectedSpawnPoint, _selectedMaterial);
+                _selectedObject = clickedObject;
+                _originalMaterial = _selectedObject.GetComponent<Renderer>().material;
+                _selectedObject.GetComponent<Renderer>().material = _selectedMaterial;
             }
         }
     }
 
-    // Roep dit aan vanuit de UI-knop om een tower te spawnen
     public void SpawnTower(GameObject towerPrefab)
     {
-        if (_selectedSpawnPoint == null || towerPrefab == null) return;
+        if (_selectedObject == null) return;
 
-        // Voeg SpawnPoint component toe als ontbreekt
-        SpawnPoint sp = _selectedSpawnPoint.GetComponent<SpawnPoint>();
-        if (sp == null) sp = _selectedSpawnPoint.AddComponent<SpawnPoint>();
+        Instantiate(
+            towerPrefab,
+            _selectedObject.transform.position + new Vector3(0, (float)_spawnYOffset, 0),
+            Quaternion.identity
+        );
 
-        // Check of al bezet
-        if (sp.IsOccupied)
-        {
-            Debug.Log("Spawnpoint already has a tower!");
-            return;
-        }
+        _selectedObject.GetComponent<Renderer>().material = _originalMaterial;
+        _selectedObject = null;
 
-        // Spawn tower
-        Instantiate(towerPrefab, _selectedSpawnPoint.transform.position + _towerOffset, Quaternion.identity);
-        sp.IsOccupied = true;
-
-        // Reset selectie
-        RestoreMaterial(_selectedSpawnPoint);
-        _selectedSpawnPoint = null;
+        _hasSpawned = true; // voorkomt nieuwe spawns als _allowMultipleSpawns = false
     }
-
-    private void RestoreMaterial(GameObject obj)
-    {
-        Renderer rend = obj.GetComponent<Renderer>();
-        if (rend != null && _originalMaterial != null)
-            rend.material = _originalMaterial;
-    }
-
-    private void SetMaterial(GameObject obj, Material mat)
-    {
-        Renderer rend = obj.GetComponent<Renderer>();
-        if (rend != null)
-        {
-            _originalMaterial = rend.material;
-            rend.material = mat;
-        }
-    }
-}
-
-// Simpel SpawnPoint component voor elk tile
-public class SpawnPoint : MonoBehaviour
-{
-    [HideInInspector] public bool IsOccupied = false;
 }

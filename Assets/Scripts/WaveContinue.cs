@@ -1,38 +1,38 @@
 using Unity.Mathematics;
 using UnityEngine;
+using System.Collections.Generic;
 
 public class WaveContinue : MonoBehaviour
 {
-    [SerializeField] private GameObject cubePrefab;
+    [SerializeField] private List<GameObject> enemyPrefabs; // Assign multiple prefabs in Inspector
     [SerializeField] private Transform spawnPoint;
-    [SerializeField] private float spawnInterrval = 6f;
-    [SerializeField] private int totalCubes = 10;
+    [SerializeField] private float _spawnInterrval = 6f;
+    [SerializeField] private int _totalEnemies = 10;
 
-    private int cubesSpawned = 0;
+    private int enemiesSpawned = 0;
     private float timer = 0f;
-    
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
     void Update()
     {
-       if (cubesSpawned < totalCubes)
+        if (enemiesSpawned < _totalEnemies)
         {
             timer += Time.deltaTime;
-            if (timer >= spawnInterrval)
+            if (timer >= _spawnInterrval)
             {
-                SpawnCube();
+                SpawnEnemy();
                 timer = 0f;
             }
         }
     }
 
-    void SpawnCube()
+    void SpawnEnemy()
     {
-        Instantiate(cubePrefab, spawnPoint.position, quaternion.identity);
-        cubesSpawned++;
+        if (enemyPrefabs == null || enemyPrefabs.Count == 0)
+            return;
+
+        // Randomly select an enemy prefab to spawn
+        int index = UnityEngine.Random.Range(0, enemyPrefabs.Count);
+        Instantiate(enemyPrefabs[index], spawnPoint.position, quaternion.identity);
+        enemiesSpawned++;
     }
 }

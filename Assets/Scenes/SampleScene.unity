@@ -2008,10 +2008,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ebd18f0eec6b88e4492b21bcf6d45352, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WaveContinue
-  cubePrefab: {fileID: 4350793256696269612, guid: e3d02aef5cac32b4b943bd0ab444ac23, type: 3}
+  enemyPrefabs:
+  - {fileID: 4350793256696269612, guid: 731fde0e31e27334ca6aa5fd043d41fa, type: 3}
+  - {fileID: 4350793256696269612, guid: e3d02aef5cac32b4b943bd0ab444ac23, type: 3}
   spawnPoint: {fileID: 1445259423}
-  spawnInterrval: 1
-  totalCubes: 10
+  _spawnInterrval: 3
+  _totalEnemies: 10
 --- !u!1 &1546769314
 GameObject:
   m_ObjectHideFlags: 0

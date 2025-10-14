@@ -5,7 +5,7 @@ public class Mousecheck : MonoBehaviour
     [SerializeField] private LayerMask _rayLayer;
     [SerializeField] private Material _selectedMaterial;
     [SerializeField] private bool _allowMultipleSpawns = true;
-    [SerializeField] private double _spawnYOffset = 0.5; // You can set this in the Inspector
+    [SerializeField] private double _spawnYOffset = 0.2; // You can set this in the Inspector
 
     private GameObject _selectedObject;
     private Material _originalMaterial;

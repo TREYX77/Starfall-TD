@@ -1,21 +1,19 @@
 ﻿using UnityEngine;
+using System.Collections.Generic;
 
-public class Mousecheck : MonoBehaviour
+public class TowerManager : MonoBehaviour
 {
     [SerializeField] private LayerMask _rayLayer;
     [SerializeField] private Material _selectedMaterial;
-    [SerializeField] private bool _allowMultipleSpawns = true;
-    [SerializeField] private double _spawnYOffset = 0.5; // You can set this in the Inspector
+    [SerializeField] private Material _defaultMaterial;
+    [SerializeField] private float _spawnYOffset = 0.5f; // Inspector value
 
     private GameObject _selectedObject;
     private Material _originalMaterial;
-    private bool _hasSpawned = false; // houdt bij of er al iets gespawned is
+    private Dictionary<GameObject, bool> _towerSpots = new Dictionary<GameObject, bool>();
 
     void Update()
     {
-        // Als meerdere spawns niet toegestaan zijn en er al gespawned is, mag niet selecteren
-        if (!_allowMultipleSpawns && _hasSpawned) return;
-
         if (Input.GetMouseButtonDown(0))
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -25,7 +23,7 @@ public class Mousecheck : MonoBehaviour
             {
                 GameObject clickedObject = hit.transform.gameObject;
 
-                // deselect als dezelfde Cube wordt aangeklikt
+                // Deselect if same object clicked
                 if (_selectedObject == clickedObject)
                 {
                     _selectedObject.GetComponent<Renderer>().material = _originalMaterial;
@@ -41,6 +39,12 @@ public class Mousecheck : MonoBehaviour
                 _selectedObject = clickedObject;
                 _originalMaterial = _selectedObject.GetComponent<Renderer>().material;
                 _selectedObject.GetComponent<Renderer>().material = _selectedMaterial;
+
+                // Register spot if not already tracked
+                if (!_towerSpots.ContainsKey(_selectedObject))
+                {
+                    _towerSpots[_selectedObject] = false;
+                }
             }
         }
     }
@@ -49,15 +53,22 @@ public class Mousecheck : MonoBehaviour
     {
         if (_selectedObject == null) return;
 
+        // Check if tower already exists on this spot
+        if (_towerSpots.ContainsKey(_selectedObject) && _towerSpots[_selectedObject])
+        {
+            // Already has a tower, do not spawn
+            return;
+        }
+
         Instantiate(
             towerPrefab,
-            _selectedObject.transform.position + new Vector3(0, (float)_spawnYOffset, 0),
+            _selectedObject.transform.position + new Vector3(0, _spawnYOffset, 0),
             Quaternion.identity
         );
 
+        _towerSpots[_selectedObject] = true;
+
         _selectedObject.GetComponent<Renderer>().material = _originalMaterial;
         _selectedObject = null;
-
-        _hasSpawned = true; // voorkomt nieuwe spawns als _allowMultipleSpawns = false
     }
 }

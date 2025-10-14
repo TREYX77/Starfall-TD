@@ -1727,7 +1727,7 @@ GameObject:
   - component: {fileID: 976271166}
   m_Layer: 0
   m_Name: Waypoint B
-  m_TagString: Untagged
+  m_TagString: Checkpoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

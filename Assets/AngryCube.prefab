@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 2531550676380487485}
   - component: {fileID: 3065572710994925035}
   - component: {fileID: 6523660111786457285}
+  - component: {fileID: 2412039886123472217}
   m_Layer: 0
   m_Name: AngryCube
   m_TagString: Enemy
@@ -125,7 +126,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de06a273fca38764b9f9705586800460, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  speed: 5
+  speed: 2
 --- !u!54 &6523660111786457285
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -153,3 +154,17 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &2412039886123472217
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4350793256696269612}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2ed59be9398cbc488b2f4b5bb0133d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyHealth
+  health: 100
+  progress: 0

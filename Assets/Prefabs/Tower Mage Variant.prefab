@@ -75,11 +75,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42b95b4970814c7439d19d8f05fae895, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TowerShoot
+  enemyTag: Enemy
+  range: 8
   bulletPrefab: {fileID: 3388286070248063909, guid: bc238ec4e75f6dd43bf79ef04e58afa5, type: 3}
   firePoint: {fileID: 5650460252095885194}
   fireRate: 1
-  range: 8
-  turnSpeed: 5
+  bulletDamage: 50
+  checkpoint: {fileID: 0}
 --- !u!1001 &7179753849017499712
 PrefabInstance:
   m_ObjectHideFlags: 0

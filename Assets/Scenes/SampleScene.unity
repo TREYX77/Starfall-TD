@@ -534,7 +534,7 @@ MonoBehaviour:
         m_MethodName: SpawnTower
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 7179753849017359950, guid: 5eef620181dd5214187daee19eb52d46, type: 3}
+          m_ObjectArgument: {fileID: 2034309120713462139, guid: db8610c31cc4c334a8924096672b8ade, type: 3}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
@@ -1057,7 +1057,7 @@ MonoBehaviour:
     m_Bits: 64
   _selectedMaterial: {fileID: 2100000, guid: 0a054b22bd79d5b4aaf4580d310952bb, type: 2}
   _defaultMaterial: {fileID: 0}
-  _spawnYOffset: 0.5
+  _spawnYOffset: 0.2
 --- !u!1001 &384227137
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1335,7 +1335,7 @@ MonoBehaviour:
         m_MethodName: SpawnTower
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 6787535808879866048, guid: 493b166ef3317a7438b3e94ffc3da843, type: 3}
+          m_ObjectArgument: {fileID: 5192700690083895465, guid: 8b4f1146479e3e84f9accdcfcbb5b8e7, type: 3}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
@@ -2300,7 +2300,7 @@ MonoBehaviour:
         m_MethodName: SpawnTower
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 3267450838901682453, guid: b578eb35acb442b4ea079e333f802fa5, type: 3}
+          m_ObjectArgument: {fileID: 1673317849752995894, guid: 65f24e228427cb747a653ccc5ba946c1, type: 3}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0

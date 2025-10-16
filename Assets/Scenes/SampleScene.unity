@@ -2839,11 +2839,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WaveContinue
   enemyPrefabs:
-  - {fileID: 4350793256696269612, guid: e3d02aef5cac32b4b943bd0ab444ac23, type: 3}
   - {fileID: 6007180743642840513, guid: 5a796ed211b2cec468ecadad11acb207, type: 3}
-  enemyCounts: 0200000002000000
+  enemyCounts: 02000000
   spawnPoint: {fileID: 1445259423}
-  _spawnInterrval: 1
+  _spawnInterrval: 3
 --- !u!1001 &1477937936
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3164,8 +3163,8 @@ BoxCollider:
   m_ProvidesContacts: 1
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 5.625398, y: 10.3191185, z: 6.772333}
-  m_Center: {x: 0.07664402, y: 4.573965, z: -1.5391212}
+  m_Size: {x: 10.035444, y: 10.3191185, z: 10.268609}
+  m_Center: {x: 0.11497755, y: 4.573965, z: 0.20901759}
 --- !u!114 &1608639876
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3179,7 +3178,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BaseHp
   maxHp: 100
-  currentHp: 50
+  currentHp: 100
   healthBar: {fileID: 1536777425}
   enemyDamageList:
   - enemyPrefab: {fileID: 4350793256696269612, guid: e3d02aef5cac32b4b943bd0ab444ac23, type: 3}

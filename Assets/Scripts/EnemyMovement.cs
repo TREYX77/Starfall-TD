@@ -2,37 +2,49 @@ using UnityEngine;
 
 public class EnemyMovement : MonoBehaviour
 {
-    [SerializeField] private float speed = 5f;
-
+    private Enemy enemy;
     private Transform target;
-    private int wavepointIndex = 0;
+    private int waypointIndex = 0;
+    public float rotationSpeed = 10f;
+
     void Start()
     {
+        enemy = GetComponent<Enemy>();
         if (WaypointsHandler.Waypoints.Count > 0)
             target = WaypointsHandler.Waypoints[0];
         else
-            Debug.LogError("no waypoints");
+            Debug.LogError("No waypoints found for enemy movement!");
     }
 
-    // Update is called once per frame
     void Update()
     {
-        if (target == null) return; // Prevent null reference errors
+        if (target == null || enemy == null) return;
 
         Vector3 dir = target.position - transform.position;
-        transform.Translate(dir.normalized * speed * Time.deltaTime, Space.World);
 
-        if (Vector3.Distance(transform.position, target.position) <= 0.2f) GetNextWaypoint();
+        // Smooth rotation toward target
+        if (dir != Vector3.zero)
+        {
+            Quaternion lookRotation = Quaternion.LookRotation(dir);
+            transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, rotationSpeed * Time.deltaTime);
+        }
+
+        // Move forward
+        transform.Translate(Vector3.forward * enemy.speed * Time.deltaTime, Space.Self);
+
+        if (Vector3.Distance(transform.position, target.position) <= 0.2f)
+            GetNextWaypoint();
     }
 
-    public void GetNextWaypoint()
+    void GetNextWaypoint()
     {
-        if (wavepointIndex >= WaypointsHandler.Waypoints.Count - 1)
+        if (waypointIndex >= WaypointsHandler.Waypoints.Count - 1)
         {
             Destroy(gameObject);
             return;
         }
-        wavepointIndex++;
-        target = WaypointsHandler.Waypoints[wavepointIndex];
+
+        waypointIndex++;
+        target = WaypointsHandler.Waypoints[waypointIndex];
     }
 }

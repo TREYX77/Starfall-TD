@@ -20,7 +20,7 @@ public class EnemyDestroyed : MonoBehaviour
     {
         if (collision.gameObject.CompareTag(designatedTag))
         {
-            Destroy(gameObject);
+           Destroy(gameObject);
         }
     }
 }

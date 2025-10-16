@@ -51,15 +51,6 @@ public class BaseHp : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("Enemy"))
-        {
-            int damage = GetDamageForEnemy(collision.gameObject);
-            TakeDamage(damage);
-        }
-    }
-
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Enemy"))

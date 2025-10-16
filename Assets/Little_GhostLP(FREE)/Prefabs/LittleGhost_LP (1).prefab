@@ -320,9 +320,10 @@ GameObject:
   - component: {fileID: 498253721416304276}
   - component: {fileID: 498253721416304278}
   - component: {fileID: 498253721416304279}
+  - component: {fileID: -8727201277160367235}
   m_Layer: 0
   m_Name: LittleGhost_LP (1)
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -417,6 +418,20 @@ CapsuleCollider:
   m_Height: 0.73960495
   m_Direction: 1
   m_Center: {x: -0.0075883865, y: 0.33836842, z: 0.00768137}
+--- !u!114 &-8727201277160367235
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 498253721416304272}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2ed59be9398cbc488b2f4b5bb0133d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Enemy
+  health: 100
+  progress: 0
 --- !u!1 &498253721421649741
 GameObject:
   m_ObjectHideFlags: 0

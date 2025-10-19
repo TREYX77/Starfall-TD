@@ -11,42 +11,63 @@ public class WaveContinue : MonoBehaviour
     [SerializeField] private float _spawnInterrval = 6f;
 
     private float timer = 0f;
+    private bool waveFinished = false;
     private Queue<GameObject> spawnQueue = new Queue<GameObject>();
 
-    void Start()
+    private bool isActive = false; // Track if the wave is active
+
+    void OnEnable()
     {
-        // Build the spawn queue based on enemyCounts
-        if (enemyPrefabs != null && enemyCounts != null)
-        {
-            for (int i = 0; i < enemyPrefabs.Count && i < enemyCounts.Count; i++)
-            {
-                for (int j = 0; j < enemyCounts[i]; j++)
-                {
-                    spawnQueue.Enqueue(enemyPrefabs[i]);
-                }
-            }
-        }
+        isActive = true;
+        InitializeSpawnQueue();
+    }
+
+    void OnDisable()
+    {
+        isActive = false;
     }
 
     void Update()
     {
-        if (spawnQueue.Count > 0)
+        if (!isActive || waveFinished) return; // Only run if the wave is active
+
+        timer += Time.deltaTime;
+        if (timer >= _spawnInterrval && spawnQueue.Count > 0)
         {
-            timer += Time.deltaTime;
-            if (timer >= _spawnInterrval)
-            {
-                SpawnEnemy();
-                timer = 0f;
-            }
+            SpawnEnemy();
+            timer = 0f;
+        }
+
+        if (spawnQueue.Count == 0)
+        {
+            waveFinished = true;
         }
     }
 
-    void SpawnEnemy()
+    private void InitializeSpawnQueue()
     {
-        if (spawnQueue.Count == 0)
-            return;
+        spawnQueue.Clear();
+        for (int i = 0; i < enemyPrefabs.Count; i++)
+        {
+            for (int j = 0; j < enemyCounts[i]; j++)
+            {
+                spawnQueue.Enqueue(enemyPrefabs[i]);
+            }
+        }
+        waveFinished = false;
+    }
 
-        GameObject prefabToSpawn = spawnQueue.Dequeue();
-        Instantiate(prefabToSpawn, spawnPoint.position, quaternion.identity);
+    private void SpawnEnemy()
+    {
+        if (spawnQueue.Count > 0)
+        {
+            GameObject enemy = Instantiate(spawnQueue.Dequeue(), spawnPoint.position, spawnPoint.rotation);
+            // Additional enemy setup logic here
+        }
+    }
+
+    public bool HasEnemiesRemaining()
+    {
+        return spawnQueue.Count > 0;
     }
 }

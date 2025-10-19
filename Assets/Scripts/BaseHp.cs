@@ -11,15 +11,15 @@ public class EnemyDamageEntry
 
 public class BaseHp : MonoBehaviour
 {
-    
     [SerializeField] private int maxHp = 100;
     [SerializeField] private int currentHp;
 
-    
     [SerializeField] private Slider healthBar;
 
-    
     [SerializeField] private List<EnemyDamageEntry> enemyDamageList = new();
+
+    // Prevent multiple game over triggers from repeated collisions
+    private bool hasTriggeredGameOver = false;
 
     void Start()
     {
@@ -31,7 +31,6 @@ public class BaseHp : MonoBehaviour
         }
     }
 
-   
     public void TakeDamage(int damage)
     {
         currentHp = Mathf.Max(currentHp - damage, 0);
@@ -39,10 +38,22 @@ public class BaseHp : MonoBehaviour
         {
             healthBar.value = currentHp;
         }
-       
+
+        if (currentHp == 0 && !hasTriggeredGameOver)
+        {
+            hasTriggeredGameOver = true;
+            var winLose = FindObjectOfType<WinLose>();
+            if (winLose != null)
+            {
+                winLose.ShowGameOver();
+            }
+            else
+            {
+                Debug.LogWarning("WinLose component not found in scene. Attach WinLose script to a GameObject and assign a GameOver panel.");
+            }
+        }
     }
 
-   
     public void SetHealthBarColor(Color color)
     {
         if (healthBar != null && healthBar.fillRect != null)

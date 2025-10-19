@@ -1112,9 +1112,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CameraMovement
   _cubeterrain: {fileID: 1659852131}
   _rotationSpeed: 10
-  _minDistance: 15
-  _maxDistance: 30
-  _zoomSensitivity: 2
+  _minDistance: 10
+  _maxDistance: 40
+  _zoomSensitivity: 10
 --- !u!114 &330585549
 MonoBehaviour:
   m_ObjectHideFlags: 0

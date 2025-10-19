@@ -4,9 +4,9 @@ public class CameraMovement : MonoBehaviour
 {
     [SerializeField] private Transform _cubeterrain;
     [SerializeField] private float _rotationSpeed = 10f;
-    [SerializeField] private float _minDistance = 15f;
-    [SerializeField] private float _maxDistance = 30f;
-    [SerializeField] private float _zoomSensitivity = 2f;
+    [SerializeField] private float _minDistance = 10f;
+    [SerializeField] private float _maxDistance = 40f;
+    [SerializeField] private float _zoomSensitivity = 10f;
 
     private float yaw = 0f;
     private float pitch = 0f;

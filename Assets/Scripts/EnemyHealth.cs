@@ -55,6 +55,12 @@ public class Enemy : MonoBehaviour
 
     void Die()
     {
+        // Geef 5 coins bij dood
+        if (CoinTracker.Instance != null)
+        {
+            CoinTracker.Instance.AddCoins(5);
+        }
+
         Destroy(gameObject);
     }
 }

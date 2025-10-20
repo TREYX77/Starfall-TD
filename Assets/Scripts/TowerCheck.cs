@@ -164,23 +164,27 @@ public class TowerManager : MonoBehaviour
     public void SpawnTower(GameObject towerPrefab)
     {
         if (selectedSpot == null) return;
-        if (towerPrefab == null)
+        if (towerPrefab == null) return;
+
+        // Check of er genoeg coins zijn
+        if (!CoinTracker.Instance.CanSpend(10))
         {
-            Debug.LogWarning("TowerManager.SpawnTower: towerPrefab is null.");
+            Debug.Log("Niet genoeg coins!");
             return;
         }
 
-        if (towerSpots.TryGetValue(selectedSpot, out bool hasTower) && hasTower)
-            return;
+        // Koop tower
+        CoinTracker.Instance.SpendCoins(10);
 
-        Vector3 spawnPos = selectedSpot.transform.position + Vector3.up * spawnYOffset;
-        Instantiate(towerPrefab, spawnPos, Quaternion.identity);
+        // Spawn tower
+        Instantiate(towerPrefab, selectedSpot.transform.position + Vector3.up * spawnYOffset, Quaternion.identity);
         towerSpots[selectedSpot] = true;
 
-        // cleanup highlight and deselect
+        // Verwijder highlight en deselect
         RemoveHighlight();
         selectedSpot = null;
     }
+
 
     private void SetLayerRecursively(GameObject go, int layer)
     {

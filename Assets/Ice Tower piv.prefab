@@ -145,10 +145,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TowerShoot
   enemyTag: Enemy
   range: 10
-  bulletPrefab: {fileID: 3388286070248063909, guid: bc238ec4e75f6dd43bf79ef04e58afa5, type: 3}
+  bulletPrefab: {fileID: 5792915065963116262, guid: 6db1a0c42e1b5944d9a7fc569feb918e, type: 3}
   firePoint: {fileID: 6400624611046234440}
-  fireRate: 1
-  bulletDamage: 20
+  fireRate: 0.5
+  bulletDamage: 60
   checkpoint: {fileID: 0}
 --- !u!4 &906008246992371740 stripped
 Transform:

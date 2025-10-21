@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class WaveManager : MonoBehaviour
 {
     [SerializeField] private List<GameObject> wavePrefabs; // Assign WaveContinue prefabs here
     [SerializeField] private float timeBetweenWaves = 5f;
+    [SerializeField] private TextMeshProUGUI waveText; // Add this in the Inspector
 
     private int currentWaveIndex = 0;
     private bool waveActive = false;
@@ -19,6 +21,7 @@ public class WaveManager : MonoBehaviour
             return;
         }
 
+        UpdateWaveUI(); // show initial wave
         StartCoroutine(RunWaves());
     }
 
@@ -48,6 +51,9 @@ public class WaveManager : MonoBehaviour
             waveActive = true;
             waveObj.SetActive(true);
 
+            // Update wave number on UI
+            UpdateWaveUI();
+
             // Wait for wave to finish
             yield return StartCoroutine(WaitForWaveToFinish(currentWaveInstance));
 
@@ -59,11 +65,18 @@ public class WaveManager : MonoBehaviour
         }
 
         Debug.Log("All waves completed!");
+        waveText.text = "All Waves Completed!";
     }
 
     private IEnumerator WaitForWaveToFinish(WaveContinue wave)
     {
         while (wave.HasEnemiesRemaining())
             yield return null;
+    }
+
+    private void UpdateWaveUI()
+    {
+        if (waveText != null)
+            waveText.text = $"Wave: {currentWaveIndex + 1}";
     }
 }

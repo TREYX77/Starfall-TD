@@ -1490,9 +1490,7 @@ MonoBehaviour:
   rayLayer:
     serializedVersion: 2
     m_Bits: 64
-  highlightPrefab: {fileID: 5029169634913437157, guid: 24a02966063faf440b753b61f7beb47b, type: 3}
-  highlightMaterial: {fileID: 0}
-  useSingleHighlightInstance: 1
+  highlightMaterial: {fileID: -6629797300637803691, guid: 821709d159048cc48942c214adb16f42, type: 3}
   spawnYOffset: 0.05
 --- !u!1 &341136846
 GameObject:

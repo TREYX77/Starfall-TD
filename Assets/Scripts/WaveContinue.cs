@@ -4,9 +4,8 @@ using System.Collections.Generic;
 
 public class WaveContinue : MonoBehaviour
 {
-    [SerializeField] private List<GameObject> enemyPrefabs; // welke Arda's er zijn
-    [SerializeField] private List<int> enemyCounts; // hoeveel Arder's per prefab
-
+    [SerializeField] private List<GameObject> enemyPrefabs;
+    [SerializeField] private List<int> enemyCounts;
     [SerializeField] private Transform spawnPoint;
     [SerializeField] private float _spawnInterrval = 6f;
 
@@ -15,7 +14,6 @@ public class WaveContinue : MonoBehaviour
 
     void Start()
     {
-        // Build the spawn queue based on enemyCounts
         if (enemyPrefabs != null && enemyCounts != null)
         {
             for (int i = 0; i < enemyPrefabs.Count && i < enemyCounts.Count; i++)
@@ -30,6 +28,10 @@ public class WaveContinue : MonoBehaviour
 
     void Update()
     {
+        // Do nothing until the game is started
+        if (GameManager.Instance == null || !GameManager.Instance.IsGameStarted)
+            return;
+
         if (spawnQueue.Count > 0)
         {
             timer += Time.deltaTime;

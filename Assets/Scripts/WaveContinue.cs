@@ -16,6 +16,8 @@ public class WaveContinue : MonoBehaviour
 
     private bool isActive = false; // Track if the wave is active
 
+    private int aliveEnemies = 0; // Track alive enemies
+
     void OnEnable()
     {
         isActive = true;
@@ -38,7 +40,8 @@ public class WaveContinue : MonoBehaviour
             timer = 0f;
         }
 
-        if (spawnQueue.Count == 0)
+        // Check if wave is finished
+        if (spawnQueue.Count == 0 && aliveEnemies == 0)
         {
             waveFinished = true;
         }
@@ -55,6 +58,7 @@ public class WaveContinue : MonoBehaviour
             }
         }
         waveFinished = false;
+        aliveEnemies = 0;
     }
 
     private void SpawnEnemy()
@@ -62,12 +66,30 @@ public class WaveContinue : MonoBehaviour
         if (spawnQueue.Count > 0)
         {
             GameObject enemy = Instantiate(spawnQueue.Dequeue(), spawnPoint.position, spawnPoint.rotation);
-            // Additional enemy setup logic here
+            aliveEnemies++;
+            // Listen for enemy death
+            EnemyDeathHandler deathHandler = enemy.AddComponent<EnemyDeathHandler>();
+            deathHandler.OnDeath += OnEnemyDeath;
         }
+    }
+
+    private void OnEnemyDeath()
+    {
+        aliveEnemies--;
     }
 
     public bool HasEnemiesRemaining()
     {
-        return spawnQueue.Count > 0;
+        return spawnQueue.Count > 0 || aliveEnemies > 0;
+    }
+}
+
+// Helper component to notify when an enemy is destroyed
+public class EnemyDeathHandler : MonoBehaviour
+{
+    public System.Action OnDeath;
+    void OnDestroy()
+    {
+        OnDeath?.Invoke();
     }
 }

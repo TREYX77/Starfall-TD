@@ -9,8 +9,8 @@ EditorBuildSettings:
     path: Assets/Scenes/main menu.unity
     guid: 9946afd98f6491c47af803acad664596
   - enabled: 1
-    path: Assets/Scenes/SampleScene.unity
-    guid: 99c9720ab356a0642a771bea13969a05
+    path: Assets/Scenes/VastForest.unity
+    guid: f6534fb5a5423cc489e86cd585975aa1
   - enabled: 1
     path: Assets/Scenes/Levels menu.unity
     guid: a2fcd2be463b2204da1c0414e81583eb

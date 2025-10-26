@@ -7,7 +7,6 @@ public class WaveContinue : MonoBehaviour
     [SerializeField] private List<GameObject> enemyPrefabs; // welke Arda's er zijn
     [SerializeField] private List<int> enemyCounts; // hoeveel Arder's per prefab
 
-    [SerializeField] private Transform spawnPoint;
     [SerializeField] private float _spawnInterrval = 6f;
 
     private float timer = 0f;
@@ -17,6 +16,19 @@ public class WaveContinue : MonoBehaviour
     private bool isActive = false; // Track if the wave is active
 
     private int aliveEnemies = 0; // Track alive enemies
+
+    private Transform[ ]spawnerTransforms;
+
+    void Awake()
+    {
+        // Find all GameObjects with the "Spawner" tag and store their transforms
+        GameObject[] spawners = GameObject.FindGameObjectsWithTag("Spawner");
+        spawnerTransforms = new Transform[spawners.Length];
+        for (int i = 0; i < spawners.Length; i++)
+        {
+            spawnerTransforms[i] = spawners[i].transform;
+        }
+    }
 
     void OnEnable()
     {
@@ -63,9 +75,13 @@ public class WaveContinue : MonoBehaviour
 
     private void SpawnEnemy()
     {
-        if (spawnQueue.Count > 0)
+        if (spawnQueue.Count > 0 && spawnerTransforms.Length > 0)
         {
-            GameObject enemy = Instantiate(spawnQueue.Dequeue(), spawnPoint.position, spawnPoint.rotation);
+            // Pick a random spawner
+            int index = UnityEngine.Random.Range(0, spawnerTransforms.Length);
+            Transform spawnTransform = spawnerTransforms[index];
+
+            GameObject enemy = Instantiate(spawnQueue.Dequeue(), spawnTransform.position, spawnTransform.rotation);
             aliveEnemies++;
             // Listen for enemy death
             EnemyDeathHandler deathHandler = enemy.AddComponent<EnemyDeathHandler>();

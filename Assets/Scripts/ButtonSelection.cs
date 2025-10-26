@@ -6,6 +6,11 @@ using UnityEditor;
 
 public class ButtonSelection : MonoBehaviour
 {
+    public void menu()
+    {
+        // Load MainMenu (build index 0)
+        SceneManager.LoadScene(0);
+    }
     public void play()
     {
         // Load VastForest (build index 1)

@@ -8538,6 +8538,8 @@ MonoBehaviour:
   - {fileID: 1754089610296413887, guid: d26161ee33fdaa943993045f06549963, type: 3}
   - {fileID: 5759652646980572020, guid: 2b290e26a05931f408718baf749a3dd8, type: 3}
   - {fileID: 7453926364423217635, guid: 18cb8b30cd8624846b24ecadc736cf30, type: 3}
+  - {fileID: 2375348763029444024, guid: 21e7b7ca11a2bc34cb9aabbb95bd6cda, type: 3}
+  - {fileID: 6549219522607330170, guid: 4736aedf3d41f244e8ee45610a72d2c9, type: 3}
   timeBetweenWaves: 5
   waveText: {fileID: 1443876966}
 --- !u!4 &1441174933
@@ -11295,7 +11297,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: c3fcc85e169630f43b6031ced9e575cd, type: 2}
+  - {fileID: 2100000, guid: 2bbcf7e0dd415f848881302456415438, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

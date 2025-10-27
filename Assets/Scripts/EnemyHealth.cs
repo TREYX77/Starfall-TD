@@ -3,8 +3,9 @@ using System.Collections;
 
 public class Enemy : MonoBehaviour
 {
-    public float health = 100f;
-    public float progress = 0f; // Hoe ver hij is op het pad
+    public float maxHealth = 100f;  // voeg maxHealth toe
+    public float health;             // huidige health
+    public float progress = 0f;      // Hoe ver hij is op het pad
     public float speed = 10f;
 
     private float originalSpeed;
@@ -12,6 +13,7 @@ public class Enemy : MonoBehaviour
     void Start()
     {
         originalSpeed = speed;
+        health = maxHealth;          // start full health
     }
 
     public void TakeDamage(float amount)

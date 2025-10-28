@@ -1,0 +1,68 @@
+using UnityEngine;
+using System.Collections;
+
+public class Enemy : MonoBehaviour
+{
+    public float maxHealth = 100f;  // voeg maxHealth toe
+    public float health;             // huidige health
+    public float progress = 0f;      // Hoe ver hij is op het pad
+    public float speed = 10f;
+
+    private float originalSpeed;
+
+    void Start()
+    {
+        originalSpeed = speed;
+        health = maxHealth;          // start full health
+    }
+
+    public void TakeDamage(float amount)
+    {
+        health -= amount;
+        if (health <= 0f)
+        {
+            Die();
+        }
+    }
+
+    public void ApplyFreeze(float slowAmount, float duration)
+    {
+        StopCoroutine(nameof(FreezeEffect));
+        StartCoroutine(FreezeEffect(slowAmount, duration));
+    }
+
+    private IEnumerator FreezeEffect(float slowAmount, float duration)
+    {
+        speed *= slowAmount;
+        yield return new WaitForSeconds(duration);
+        speed = originalSpeed;
+    }
+
+    public void ApplyBurn(float tickDamage, float duration, float interval)
+    {
+        StopCoroutine(nameof(BurnEffect));
+        StartCoroutine(BurnEffect(tickDamage, duration, interval));
+    }
+
+    private IEnumerator BurnEffect(float tickDamage, float duration, float interval)
+    {
+        float elapsed = 0f;
+        while (elapsed < duration)
+        {
+            TakeDamage(tickDamage);
+            yield return new WaitForSeconds(interval);
+            elapsed += interval;
+        }
+    }
+
+    void Die()
+    {
+        // Geef 5 coins bij dood
+        if (CoinTracker.Instance != null)
+        {
+            CoinTracker.Instance.AddCoins(5);
+        }
+
+        Destroy(gameObject);
+    }
+}

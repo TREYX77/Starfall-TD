@@ -40,4 +40,7 @@ Language: C#
 
 🧑‍💻 Credits
 
-Created by Treyx, Hugo, Arda
+Created by,
+seophugo
+chomster
+TREYX77

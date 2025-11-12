@@ -16,6 +16,8 @@ Earn points or currency for each defeated ghost.
 
 Survive as many waves as possible.
 
+
+
 ⚙️ Features
 
 Enemy pathfinding
@@ -26,12 +28,16 @@ Basic defense and upgrade system
 
 Simple testing UI
 
+
+
 🧱 Built With
 
 Engine: Unity 2022.2f
 
 Language: C#
 
+
+
 🧑‍💻 Credits
 
-Created by Treyx
+Created by Treyx, Hugo, Arda
